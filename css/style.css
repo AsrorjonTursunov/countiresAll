@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
+:root {
+  --primary-color: white;
+  --secondary-color: black;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+}
+.dark-mode {
+  --primary-color: #202c37;
+  --secondary-color: white;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+.container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.hero-text {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.search {
+  padding: 48px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background: var();
+  color: var(--primary-color);
+}
+
+.input-search {
+  width: 480px;
+  height: 56px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+
+  border: none;
+}
+.input-search.placeholder {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.filter-regions {
+  display: flex;
+  width: 200px;
+  height: 56px;
+  padding: 15px 0;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.card {
+  width: 264px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 24px;
+}
+
+.info h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.info p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.info b {
+  font-weight: 600;
+}
