@@ -1,67 +1,67 @@
-import { davlatlar } from "./data.js";
 let searchEl = document.querySelector("#search");
 let cardEl = document.querySelector("#cards");
-let regionsEl = document.querySelector("#regions");
+let selectEl = document.querySelector("#regions");
 let btnEl = document.querySelector("#btn");
 
-davlatlar.forEach((d) => {
-  cardEl.innerHTML += `
-    <div class="card">
-    <img src="${d.rasm}" alt="${d.nomi}">
-    <h2>${d.nomi}</h2>
-    <p><b>Population</b>: ${d.aholisi}</p>
-    <p><b>Region</b>: ${d.qitasi}</p>
-    <p><b>Capital</b>: ${d.poytaxti}</p>
-    </div>`;
-});
-console.log(davlatlar);
+async function getCountries() {
+  try {
+    let response = await fetch(
+      "https://countries-api-steel-theta.vercel.app/api/countries",
+    );
+    console.log(response);
+    if (!response.ok) {
+      throw new Error("Muammo yuzaga keldi");
+    }
 
-searchEl.addEventListener("input", () => {
-  let natija = davlatlar.filter((e) => {
-    return e.nomi.toLowerCase().includes(searchEl.value.toLowerCase());
-  });
+    let data = await response.json();
+    updateUi(data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+getCountries();
+
+function updateUi(arr) {
   cardEl.innerHTML = "";
 
-  natija.forEach((d) => {
+  arr.forEach((count) => {
     cardEl.innerHTML += `
     <div class="card">
-    <img src="${d.rasm}" alt="${d.nomi}">
-    <h2>${d.nomi}</h2>
-    <p><b>Population</b>: ${d.aholisi}</p>
-    <p><b>Region</b>: ${d.qitasi}</p>
-    <p><b>Capital</b>: ${d.poytaxti}</p>
-    </div>`;
+    <img src="${count.flag}" alt="">
+     <h2>${count.name}</h2>
+     <p><b>Population</b>: ${count.population}</p>
+     <p><b>Region</b>: ${count.region}</p>
+     <p><b>Capital</b>: ${count.capital}</p>
+     </div>
+    `;
   });
+}
+
+searchEl.addEventListener("input", async () => {
+  let natija = await fetch(
+    `https://countries-api-steel-theta.vercel.app/api/countries?name=${searchEl.value}&region=${selectEl.value}`,
+  );
+  let data = await natija.json();
+  cardEl.innerHTML = "";
+  updateUi(data.data);
 });
 
-regionsEl.addEventListener("change", () => {
-  let region = davlatlar.filter((e) => {
-    return e.qitasi.toLowerCase() === regionsEl.value.toLowerCase();
-  });
-
+selectEl.addEventListener("change", async () => {
+  let ready = await fetch(
+    `https://countries-api-steel-theta.vercel.app/api/countries?name=${searchEl.value}&region=${selectEl.value}`,
+  );
+  let data = await ready.json();
   cardEl.innerHTML = "";
-
-  region.forEach((d) => {
-    cardEl.innerHTML += `
-    <div class="card">
-    <img src="${d.rasm}" alt="${d.nomi}">
-    <h2>${d.nomi}</h2>
-    <p><b>Population</b>: ${d.aholisi}</p>
-    <p><b>Region</b>: ${d.qitasi}</p>
-    <p><b>Capital</b>: ${d.poytaxti}</p>
-    </div>`;
-  });
+  updateUi(data.data);
 });
 
 btnEl.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
 
-  let dark = document.body.className === "dark-mode";
-
-  if (dark) {
-    btnEl.innerText = " Light mode";
+  if (document.body.className === "dark-mode") {
+    btnEl.innerText = "Light mode";
   } else {
-    btnEl.innerText = " Dark mode";
+    btnEl.innerText = "Dark mode";
   }
 });
